@@ -39,6 +39,8 @@ jobs:
             .acceptance.self_registration == true and
             .acceptance.external_connection == true and
             .acceptance.public_payload_reviewed == true and
+            .acceptance.mandatory_updates == true and
+            .acceptance.installer == true and
             (.artifacts | type == "array" and length > 0 and length <= 24) and
             ([.artifacts[].name] | unique | length) == (.artifacts | length) and
             all(.artifacts[];
