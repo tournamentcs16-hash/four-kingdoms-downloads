@@ -1,0 +1,8 @@
+{
+  "schema": "ttr.pc-release-key.v1",
+  "key_id": "ttrpc-rs256-12792a3d584cc5d1",
+  "algorithm": "RS256",
+  "rsa_bits": 3072,
+  "modulus_b64": "mRCtatYqofdz1+9nish6KlX/C+AhrzdHg+idGHcwWWL5T43R4t7r3fu4QGe7J5Q9oomLqbJqc/83OwI76d/TcqcuiRgkr9aX72j7nZN73blFM/PnqrPBh/Lrx0NtD074FE9rQIx9QYCO6wJB90/wnNLMYJYYsoiu1f5U5R/F0+6jMZ7/sLoUy3ZJ8tBnMISH1azNvLUSLExVL5TpVTopsXcn40fil6awM8AwK+uBKPiflYjo+gIiS8sQZWUpsrhuwwmlxbI+j1VGJUT+wfRNz/MsP8I1thUF/Rc4VlBEjU8GZ9n5TWWQIt2CuvfKqu4l9q1r01uy3fm7FeSljCQorSPCsUSiTD/lJP8ksDQ8BB7/gmZkJbrQycQjtMubvMgqLHE0b2Mq6Z7hxzQ77EsdNziOdNPsCEiCJQJzUDGH+ovibGbTD1COdDG6el6N64ZK5FBsraR4aJDlQT0tmWTCWJPZKdQU8mfQRtiMi1JOZDD1j0nQtVgXQBVXRjSxE+bV",
+  "exponent_b64": "AQAB"
+}
