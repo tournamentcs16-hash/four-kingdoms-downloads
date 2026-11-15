@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "repository": "tournamentcs16-hash/four-kingdoms-downloads",
+  "release": {
+    "tag": "PC-Build53-alpha",
+    "title": "The Tenth Rift PC Alpha — Build53",
+    "notes": "The Tenth Rift — Windows PC multiplayer alpha Build53.\n\nDownload and run TheTenthRiftSetup.exe. It downloads and verifies the game files automatically. Create a player account, choose a hero and join the queue. A match forms with six players (3v3), using the existing 20-second ready check and loading/start flow. The client checks installed/latest revisions and requires verified updates when outdated.\n\nSteam and Tailscale are not required for testers. This is an alpha test build; normal ranked and Tournament deployment remain separate."
+  },
+  "acceptance": {
+    "multiplayer": true,
+    "self_registration": true,
+    "external_connection": true,
+    "public_payload_reviewed": true,
+    "mandatory_updates": true,
+    "installer": true
+  },
+  "artifacts": [
+    {
+      "name": "TheTenthRiftBuild53.part01.bin",
+      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.part01.bin",
+      "bytes": 1610612736,
+      "sha256": "9f8e18ad7aeb542db1a2b1025911f092017a9049bef332c060918e08e55df4ec"
+    },
+    {
+      "name": "TheTenthRiftBuild53.part02.bin",
+      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.part02.bin",
+      "bytes": 1215215707,
+      "sha256": "db4b09d84dd6e99bb4c7254262569949b4b9f8b0518a83278d7e9ce35650e26a"
+    },
+    {
+      "name": "TheTenthRiftBuild53.payload.json",
+      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.payload.json",
+      "bytes": 1582,
+      "sha256": "8531a35b1e22f56ce9b3c51bb3ce3f5f2c7222ee37c57662aa87902a1682fd1e"
+    },
+    {
+      "name": "TheTenthRiftBuild53.receipt.json",
+      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.receipt.json",
+      "bytes": 1042,
+      "sha256": "85c1a332621bb0f6559068bf02ce193530bdab3fff2b0f24393efb2825ffcf03"
+    },
+    {
+      "name": "TheTenthRiftSetup.exe",
+      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftSetup.exe",
+      "bytes": 50688,
+      "sha256": "320a477c8465bb3f72844053309f0ae5f7883484744309b1105919c3f9da609b"
+    },
+    {
+      "name": "TheTenthRiftLatest.json",
+      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftLatest.json",
+      "bytes": 1910,
+      "sha256": "a490cd6d9ba50bbe5c35d4a22633d01e3d4b069a0afee0ce36c9ec71043790c3"
+    }
+  ]
+}
