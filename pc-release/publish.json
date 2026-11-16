@@ -2,9 +2,9 @@
   "schema": 1,
   "repository": "tournamentcs16-hash/four-kingdoms-downloads",
   "release": {
-    "tag": "PC-Build53-alpha",
-    "title": "The Tenth Rift PC Alpha — Build53",
-    "notes": "The Tenth Rift — Windows PC multiplayer alpha Build53.\n\nDownload and run TheTenthRiftSetup.exe. It downloads and verifies the game files automatically. Create a player account, choose a hero and join the queue. A match forms with six players (3v3), using the existing 20-second ready check and loading/start flow. The client checks installed/latest revisions and requires verified updates when outdated.\n\nSteam and Tailscale are not required for testers. This is an alpha test build; normal ranked and Tournament deployment remain separate."
+    "tag": "PC-Build54-alpha",
+    "title": "The Tenth Rift PC Alpha — Build54",
+    "notes": "The Tenth Rift — Windows PC multiplayer alpha Build54.\n\nFixes Solo administrator test so an explicit administrator request can start a private one-player test while public matchmaking is enabled. When a common search is already active, the client receives a clear instruction to cancel it first. Ordinary matchmaking continues to require six players (3v3) with the existing 20-second ready check.\n\nExisting Build53 clients receive the mandatory signed update in the game. Player accounts, passwords, MFA, statistics and settings are preserved. Download TheTenthRiftSetup.exe for a new installation; the installer retrieves and verifies the game files automatically."
   },
   "acceptance": {
     "multiplayer": true,
@@ -16,40 +16,40 @@
   },
   "artifacts": [
     {
-      "name": "TheTenthRiftBuild53.part01.bin",
-      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.part01.bin",
+      "name": "TheTenthRiftBuild54.part01.bin",
+      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.part01.bin",
       "bytes": 1610612736,
-      "sha256": "9f8e18ad7aeb542db1a2b1025911f092017a9049bef332c060918e08e55df4ec"
+      "sha256": "5e7a262a50b3254cfca7bc17546c9338551759f37e921823d35a99bebd177835"
     },
     {
-      "name": "TheTenthRiftBuild53.part02.bin",
-      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.part02.bin",
-      "bytes": 1215215707,
-      "sha256": "db4b09d84dd6e99bb4c7254262569949b4b9f8b0518a83278d7e9ce35650e26a"
+      "name": "TheTenthRiftBuild54.part02.bin",
+      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.part02.bin",
+      "bytes": 1215224960,
+      "sha256": "4dc6120e0d4b518a05e47731acd47f6c9087f1bbd8e81f15618f2c1a48593c1a"
     },
     {
-      "name": "TheTenthRiftBuild53.payload.json",
-      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.payload.json",
+      "name": "TheTenthRiftBuild54.payload.json",
+      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.payload.json",
       "bytes": 1582,
-      "sha256": "8531a35b1e22f56ce9b3c51bb3ce3f5f2c7222ee37c57662aa87902a1682fd1e"
+      "sha256": "3f4f60f6a2a7250cc28a29e3faf8fb3bd6a78a8ec561472f684025e5a3475039"
     },
     {
-      "name": "TheTenthRiftBuild53.receipt.json",
-      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftBuild53.receipt.json",
+      "name": "TheTenthRiftBuild54.receipt.json",
+      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.receipt.json",
       "bytes": 1042,
-      "sha256": "85c1a332621bb0f6559068bf02ce193530bdab3fff2b0f24393efb2825ffcf03"
+      "sha256": "8a58836babf866a826e89edb08d535c477b6a7de8193ff79845100ecbee31f1e"
     },
     {
       "name": "TheTenthRiftSetup.exe",
-      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftSetup.exe",
+      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftSetup.exe",
       "bytes": 50688,
       "sha256": "320a477c8465bb3f72844053309f0ae5f7883484744309b1105919c3f9da609b"
     },
     {
       "name": "TheTenthRiftLatest.json",
-      "url": "https://fall-wheels-healthcare-gnu.trycloudflare.com/public-transfer/5046c30c25484e9abfbec1bd95acd2f3/TheTenthRiftLatest.json",
+      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftLatest.json",
       "bytes": 1910,
-      "sha256": "a490cd6d9ba50bbe5c35d4a22633d01e3d4b069a0afee0ce36c9ec71043790c3"
+      "sha256": "ec2415ae7f493aed3762d3b8e73d233af3a7db4397a953cdbd8509443124b36f"
     }
   ]
 }
