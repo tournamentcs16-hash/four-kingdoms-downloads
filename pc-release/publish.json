@@ -2,9 +2,9 @@
   "schema": 1,
   "repository": "tournamentcs16-hash/four-kingdoms-downloads",
   "release": {
-    "tag": "PC-Build54-alpha",
-    "title": "The Tenth Rift PC Alpha — Build54",
-    "notes": "The Tenth Rift — Windows PC multiplayer alpha Build54.\n\nFixes Solo administrator test so an explicit administrator request can start a private one-player test while public matchmaking is enabled. When a common search is already active, the client receives a clear instruction to cancel it first. Ordinary matchmaking continues to require six players (3v3) with the existing 20-second ready check.\n\nExisting Build53 clients receive the mandatory signed update in the game. Player accounts, passwords, MFA, statistics and settings are preserved. Download TheTenthRiftSetup.exe for a new installation; the installer retrieves and verifies the game files automatically."
+    "tag": "PC-Build55-alpha",
+    "title": "The Tenth Rift PC Alpha — Build55",
+    "notes": "The Tenth Rift — Windows PC multiplayer alpha Build55.\n\nFixes an installer self-lock during in-game updates: Setup now moves its working directory outside the Game folder before replacing the installation. Adds stage-specific diagnostics and a Windows child-process regression covering inherited Game directory, parent validation, directory swap and rollback.\n\nReuses the verified Build54 game runtime, including the Solo administrator test fix. No Unreal gameplay or cooked asset changes. Existing clients update through the game; accounts, passwords, MFA and statistics are preserved. Public matchmaking remains 3v3 with a 20-second ready check."
   },
   "acceptance": {
     "multiplayer": true,
@@ -16,40 +16,40 @@
   },
   "artifacts": [
     {
-      "name": "TheTenthRiftBuild54.part01.bin",
-      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.part01.bin",
+      "name": "TheTenthRiftBuild55.part01.bin",
+      "url": "https://sussex-lions-para-ability.trycloudflare.com/public-transfer/2ba5b3d9029a435bb475dad0cc6b601a/TheTenthRiftBuild55.part01.bin",
       "bytes": 1610612736,
-      "sha256": "5e7a262a50b3254cfca7bc17546c9338551759f37e921823d35a99bebd177835"
+      "sha256": "edb52f87c11da0df0b2418e2a8dc4076d4d2e31fd4392be054d32dcd670a65e3"
     },
     {
-      "name": "TheTenthRiftBuild54.part02.bin",
-      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.part02.bin",
-      "bytes": 1215224960,
-      "sha256": "4dc6120e0d4b518a05e47731acd47f6c9087f1bbd8e81f15618f2c1a48593c1a"
+      "name": "TheTenthRiftBuild55.part02.bin",
+      "url": "https://sussex-lions-para-ability.trycloudflare.com/public-transfer/2ba5b3d9029a435bb475dad0cc6b601a/TheTenthRiftBuild55.part02.bin",
+      "bytes": 1215224959,
+      "sha256": "ea31da259c31690afdfc3489d68ccd1c982cf5ca5d55164308d68cf6cd915ac4"
     },
     {
-      "name": "TheTenthRiftBuild54.payload.json",
-      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.payload.json",
+      "name": "TheTenthRiftBuild55.payload.json",
+      "url": "https://sussex-lions-para-ability.trycloudflare.com/public-transfer/2ba5b3d9029a435bb475dad0cc6b601a/TheTenthRiftBuild55.payload.json",
       "bytes": 1582,
-      "sha256": "3f4f60f6a2a7250cc28a29e3faf8fb3bd6a78a8ec561472f684025e5a3475039"
+      "sha256": "ed1317d09bc68fafb90d395e72030c26869a18629194594a1a3af6b5de3ba3df"
     },
     {
-      "name": "TheTenthRiftBuild54.receipt.json",
-      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftBuild54.receipt.json",
+      "name": "TheTenthRiftBuild55.receipt.json",
+      "url": "https://sussex-lions-para-ability.trycloudflare.com/public-transfer/2ba5b3d9029a435bb475dad0cc6b601a/TheTenthRiftBuild55.receipt.json",
       "bytes": 1042,
-      "sha256": "8a58836babf866a826e89edb08d535c477b6a7de8193ff79845100ecbee31f1e"
+      "sha256": "0cc974f95dac26d39329c26cc2e95993534c8ee0b8ce17c9a55a96128914ac73"
     },
     {
       "name": "TheTenthRiftSetup.exe",
-      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftSetup.exe",
-      "bytes": 50688,
-      "sha256": "320a477c8465bb3f72844053309f0ae5f7883484744309b1105919c3f9da609b"
+      "url": "https://sussex-lions-para-ability.trycloudflare.com/public-transfer/2ba5b3d9029a435bb475dad0cc6b601a/TheTenthRiftSetup.exe",
+      "bytes": 53760,
+      "sha256": "0ca021a5f8c084dcbce8b4fa5ef3960c8d03d9f3cbac86f0cc92ee93d2144849"
     },
     {
       "name": "TheTenthRiftLatest.json",
-      "url": "https://trout-brick-flu-subscriber.trycloudflare.com/public-transfer/47f07c42fb8941a8917cea9a26436a38/TheTenthRiftLatest.json",
+      "url": "https://sussex-lions-para-ability.trycloudflare.com/public-transfer/2ba5b3d9029a435bb475dad0cc6b601a/TheTenthRiftLatest.json",
       "bytes": 1910,
-      "sha256": "ec2415ae7f493aed3762d3b8e73d233af3a7db4397a953cdbd8509443124b36f"
+      "sha256": "6d6905eb580928ef594d9b3ccef156b73da9d728da9d0bc83e1c50551aea770f"
     }
   ]
 }
