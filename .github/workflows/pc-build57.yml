@@ -106,7 +106,9 @@ jobs:
               if result.returncode: print(result.stderr,flush=True);result.check_returncode()
               return result.stdout
           def find_release():
-              matches=[r for r in json.loads(gh('api',f'repos/{REPO}/releases?per_page=100')) if r['tag_name']==TAG]
+              # A cached pre-create list can omit the newly created own draft.
+              endpoint=f'repos/{REPO}/releases?per_page=100&page=1&publication_poll={time.time_ns()}'
+              matches=[r for r in json.loads(gh('api','-H','Cache-Control: no-cache',endpoint)) if r['tag_name']==TAG]
               assert len(matches)<=1
               return matches[0] if matches else None
           marker='<!-- TTR-PC57-REVIEWED:'+os.environ['TRANSFER_MANIFEST_SHA256']+' -->'
@@ -116,9 +118,9 @@ jobs:
           if release is not None:
               assert marker in (release.get('body') or ''), 'An independently managed release already exists; preserved'
           else:
-              gh('release','create',TAG,'--repo',REPO,'--target','main','--draft','--latest=false','--title','The Tenth Rift PC alpha — Build57','--notes-file','pc57-release-notes.txt')
-              release=find_release()
-              assert release is not None
+              # Use the authenticated creation response's numeric ID, not a stale list.
+              release=json.loads(gh('api',f'repos/{REPO}/releases','--method','POST','-f',f'tag_name={TAG}','-f','target_commitish=main','-f','name=The Tenth Rift PC alpha — Build57','-f',f'body={notes}','-F','draft=true','-F','prerelease=false','-f','make_latest=false'))
+              assert release['tag_name']==TAG and release['draft'] and marker in release['body'] and isinstance(release['id'],int)
           endpoint=f'repos/{REPO}/releases/{release["id"]}'
           upload_names=set(rows)-{'TheTenthRiftLatest.json'}
           assert len(upload_names)==len(payload['parts'])+3
