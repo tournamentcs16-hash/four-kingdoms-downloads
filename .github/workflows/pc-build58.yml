@@ -1,0 +1,143 @@
+name: Publish reviewed PC Build58 assets
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/pc-build58.yml]
+permissions:
+  contents: write
+concurrency:
+  group: pc-build58-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'tournamentcs16-hash/four-kingdoms-downloads'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TRANSFER_MANIFEST_URL: "https://ones-complexity-ted-exceptions.trycloudflare.com/public-transfer/9afcdad4e31a481e92044025f1d79dba/TheTenthRiftTransferManifest.json"
+      TRANSFER_MANIFEST_SHA256: "9960bf5261451cf02fc3539b67c3c03a8136981fb7908d1237f25d4650c83eb5"
+      EXPECTED_FILES_JSON: "{\"TheTenthRiftBuild58.part01.bin\":{\"bytes\":1610612736,\"sha256\":\"831acecc09fda257d1fb989f44af0661720521d98916f1c76a7f0afd400670f6\"},\"TheTenthRiftBuild58.part02.bin\":{\"bytes\":1610612736,\"sha256\":\"1271deb2979cb463385be96244115d3a8963d305296706affbe6bf593b014b18\"},\"TheTenthRiftBuild58.part03.bin\":{\"bytes\":1610612736,\"sha256\":\"318e7ff771d261d926c8598cb9646896f0618978da166fc742f72b397a1de4e3\"},\"TheTenthRiftBuild58.part04.bin\":{\"bytes\":1053402301,\"sha256\":\"6be04b08486d18f77a0a9ebc62cd84c39f55a3fbb3126a3d2b0d2c8eabbea7ed\"},\"TheTenthRiftBuild58.payload.json\":{\"bytes\":2206,\"sha256\":\"604cb1f3903fa9eef449b0b6810445c840cdde967bb7c5fcb2f4ddbdd4ad26ab\"},\"TheTenthRiftBuild58.receipt.json\":{\"bytes\":1042,\"sha256\":\"eb1b4e98368295bd8fc7a54e8ebe74bd2f833500c54cb27b8bd33e3cf62b17b0\"},\"TheTenthRiftSetup.exe\":{\"bytes\":500224,\"sha256\":\"144b4b11b26409013dddc3eaf3868558a8a50f24e124d5c24ac33cfa4a675830\"},\"TheTenthRiftLatest.json\":{\"bytes\":1914,\"sha256\":\"3cc80ca9b86cd4835a15b25e1fde25059e87666898c1bf2d17c9163ff02be38f\"}}"
+      PUBLIC_KEY_JSON_B64: "ew0KICAic2NoZW1hIjogInR0ci5wYy1yZWxlYXNlLWtleS52MSIsDQogICJrZXlfaWQiOiAidHRycGMtcnMyNTYtMTI3OTJhM2Q1ODRjYzVkMSIsDQogICJhbGdvcml0aG0iOiAiUlMyNTYiLA0KICAicnNhX2JpdHMiOiAzMDcyLA0KICAibW9kdWx1c19iNjQiOiAibVJDdGF0WXFvZmR6MSs5bmlzaDZLbFgvQytBaHJ6ZEhnK2lkR0hjd1dXTDVUNDNSNHQ3cjNmdTRRR2U3SjVROW9vbUxxYkpxYy84M093STc2ZC9UY3FjdWlSZ2tyOWFYNzJqN25aTjczYmxGTS9QbnFyUEJoL0xyeDBOdEQwNzRGRTlyUUl4OVFZQ082d0pCOTAvd25OTE1ZSllZc29pdTFmNVU1Ui9GMCs2ak1aNy9zTG9VeTNaSjh0Qm5NSVNIMWF6TnZMVVNMRXhWTDVUcFZUb3BzWGNuNDBmaWw2YXdNOEF3Syt1QktQaWZsWWpvK2dJaVM4c1FaV1Vwc3JodXd3bWx4YkkrajFWR0pVVCt3ZlJOei9Nc1A4STF0aFVGL1JjNFZsQkVqVThHWjluNVRXV1FJdDJDdXZmS3F1NGw5cTFyMDF1eTNmbTdGZVNsakNRb3JTUENzVVNpVEQvbEpQOGtzRFE4QkI3L2dtWmtKYnJReWNRanRNdWJ2TWdxTEhFMGIyTXE2WjdoeHpRNzdFc2ROemlPZE5Qc0NFaUNKUUp6VURHSCtvdmliR2JURDFDT2RERzZlbDZONjRaSzVGQnNyYVI0YUpEbFFUMHRtV1RDV0pQWktkUVU4bWZRUnRpTWkxSk9aREQxajBuUXRWZ1hRQlZYUmpTeEUrYlYiLA0KICAiZXhwb25lbnRfYjY0IjogIkFRQUIiDQp9"
+      FEED_SHA256: "3cc80ca9b86cd4835a15b25e1fde25059e87666898c1bf2d17c9163ff02be38f"
+      NATIVE_EXE_SHA256: "aceeb39c87303d916284fededb036b9af3bedf862cd7d1022fe986d987032290"
+    steps:
+      - name: Verify signatures and publish exact public assets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          """One bounded public-PC release publication. No source, secrets or feed update."""
+          import base64, concurrent.futures, hashlib, json, os, pathlib, re, subprocess, time, urllib.request
+          
+          REPO='tournamentcs16-hash/four-kingdoms-downloads'
+          TAG='PC-Build58-alpha'
+          assert os.environ['GITHUB_REPOSITORY']==REPO
+          manifest_url=os.environ['TRANSFER_MANIFEST_URL']
+          assert re.fullmatch(r'https://[a-z0-9-]+\.trycloudflare\.com/public-transfer/[a-f0-9]{32}/TheTenthRiftTransferManifest.json',manifest_url)
+          expected=json.loads(os.environ['EXPECTED_FILES_JSON'])
+          key_bytes=base64.b64decode(os.environ['PUBLIC_KEY_JSON_B64'],validate=True)
+          assert hashlib.sha256(key_bytes).hexdigest()=='63192ccf7576e5d6abb4473354220a2b822ddbe3d431772949c5d6aa705a3e90'
+          key=json.loads(key_bytes)
+          def digest(path):
+              with path.open('rb') as f: return hashlib.file_digest(f,'sha256').hexdigest()
+          def fetch(url):
+              with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'TheTenthRift-public-release'}),timeout=60) as response: return response.read()
+          raw=fetch(manifest_url)
+          assert hashlib.sha256(raw).hexdigest()==os.environ['TRANSFER_MANIFEST_SHA256']
+          manifest=json.loads(raw)
+          assert manifest['schema']=='ttr.pc-reviewed-transfer.v1' and manifest['build']==58 and manifest['tag']==TAG
+          rows={r['name']:r for r in manifest['files']}
+          assert len(rows)==len(manifest['files']) and set(rows)==set(expected)
+          folder=pathlib.Path('reviewed-pc58-assets');folder.mkdir(exist_ok=True)
+          prefix=manifest_url.rsplit('/',1)[0]+'/'
+          for name,row in rows.items():
+              assert re.fullmatch(r'TheTenthRift[A-Za-z0-9_.-]+',name) and '..' not in name
+              assert row['url']==prefix+name and {k:row[k] for k in ('bytes','sha256')}==expected[name]
+              assert 0<row['bytes']<2*1024**3
+          def download(name):
+              row=rows[name];path=folder/name
+              for attempt in range(6):
+                  if path.exists() and path.stat().st_size==row['bytes']:
+                      assert digest(path)==row['sha256'];return
+                  offset=path.stat().st_size if path.exists() else 0
+                  assert offset<row['bytes']
+                  request=urllib.request.Request(row['url'],headers={'User-Agent':'TheTenthRift-public-release','Range':f'bytes={offset}-'})
+                  try:
+                      with urllib.request.urlopen(request,timeout=90) as response:
+                          assert response.status==206 and response.headers['Content-Range'].startswith(f'bytes {offset}-')
+                          with path.open('ab') as target:
+                              while block:=response.read(4*1024*1024): target.write(block)
+                      assert path.stat().st_size==row['bytes'] and digest(path)==row['sha256']
+                      print('Verified public asset:',name,flush=True);return
+                  except (OSError,TimeoutError) as error:
+                      if attempt==5: raise
+                      print('Resuming public download:',name,type(error).__name__,flush=True);time.sleep(2)
+              raise RuntimeError('Download did not complete')
+          with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool: list(pool.map(download,sorted(rows)))
+          n=int.from_bytes(base64.b64decode(key['modulus_b64']), 'big');e=int.from_bytes(base64.b64decode(key['exponent_b64']), 'big')
+          assert n.bit_length()==3072 and e==65537
+          def signed(name):
+              envelope=json.loads((folder/name).read_text())
+              assert envelope['schema']=='ttr.pc-signed-envelope.v1' and envelope['key_id']==key['key_id'] and envelope['algorithm']=='RS256'
+              payload=base64.b64decode(envelope['payload_b64'],validate=True);signature=base64.b64decode(envelope['signature_b64'],validate=True)
+              assert len(signature)==384 and int.from_bytes(signature,'big')<n
+              tail=bytes.fromhex('3031300d060960864801650304020105000420')+hashlib.sha256(payload).digest()
+              block=b'\x00\x01'+b'\xff'*(384-len(tail)-3)+b'\x00'+tail
+              assert pow(int.from_bytes(signature,'big'),e,n).to_bytes(384,'big')==block
+              return json.loads(payload)
+          feed=signed('TheTenthRiftLatest.json');payload=signed('TheTenthRiftBuild58.payload.json');receipt=signed('TheTenthRiftBuild58.receipt.json')
+          assert all(d['revision']==58 and d['native_protocol']==1 for d in (feed,payload,receipt))
+          assert feed['minimum_revision']==58 and feed['release_tag']==TAG and feed['version']=='0.1.7-alpha'
+          assert receipt['native_exe_sha256']==os.environ['NATIVE_EXE_SHA256']
+          assert digest(folder/'TheTenthRiftLatest.json')==os.environ['FEED_SHA256']
+          public_base=f'https://github.com/{REPO}/releases/download/{TAG}/'
+          for field in ('installer','payload','receipt'):
+              row=feed[field];name=row['url'].removeprefix(public_base)
+              assert row['url']==public_base+name and name in rows and {k:row[k] for k in ('bytes','sha256')}==expected[name]
+          combined=hashlib.sha256();total=0
+          for index,row in enumerate(payload['parts'],1):
+              name=f'TheTenthRiftBuild58.part{index:02}.bin'
+              assert row['url']==public_base+name and {k:row[k] for k in ('bytes','sha256')}==expected[name]
+              with (folder/name).open('rb') as source:
+                  while block:=source.read(8*1024*1024): combined.update(block);total+=len(block)
+          assert combined.hexdigest()==payload['archive']['sha256'] and total==payload['archive']['bytes']
+          def gh(*args):
+              result=subprocess.run(['gh',*args],text=True,capture_output=True)
+              if result.returncode: print(result.stderr,flush=True);result.check_returncode()
+              return result.stdout
+          def find_release():
+              # A cached pre-create list can omit the newly created own draft.
+              endpoint=f'repos/{REPO}/releases?per_page=100&page=1&publication_poll={time.time_ns()}'
+              matches=[r for r in json.loads(gh('api','-H','Cache-Control: no-cache',endpoint)) if r['tag_name']==TAG]
+              assert len(matches)<=1
+              return matches[0] if matches else None
+          marker='<!-- TTR-PC58-REVIEWED:'+os.environ['TRANSFER_MANIFEST_SHA256']+' -->'
+          notes="The Tenth Rift PC alpha — Build58 / 0.1.7-alpha FIX\n\nUrgent animation fix for Dragon Speaker, Rogod'an and Velisara: native directional walking/running/back/strafe blends, jump/fall/landing, moving basic attacks and all twelve native skill clips. Release timings follow the authored native clips; Rapid Fire remains four arrows. Retreating Shot carries the same authoritative movement duration on server and owner. Existing sixteen appearances, damage/range/cost/cooldown rules, accounts, MFA and preferences remain. Two upcoming heroes are excluded. The owner expressly waived final screenshots to prioritize this urgent FIX; no final visual, full-match, network or performance test suite acceptance is claimed. Steam sign-in remains pending.\n\n"+marker+'\n'
+          pathlib.Path('pc58-release-notes.txt').write_text(notes)
+          release=find_release()
+          if release is not None:
+              assert marker in (release.get('body') or ''), 'An independently managed release already exists; preserved'
+          else:
+              # Use the authenticated creation response's numeric ID, not a stale list.
+              release=json.loads(gh('api',f'repos/{REPO}/releases','--method','POST','-f',f'tag_name={TAG}','-f','target_commitish=main','-f','name=The Tenth Rift PC alpha — Build58','-f',f'body={notes}','-F','draft=true','-F','prerelease=false','-f','make_latest=false'))
+              assert release['tag_name']==TAG and release['draft'] and marker in release['body'] and isinstance(release['id'],int)
+          endpoint=f'repos/{REPO}/releases/{release["id"]}'
+          upload_names=set(rows)-{'TheTenthRiftLatest.json'}
+          assert len(upload_names)==len(payload['parts'])+3
+          existing={a['name']:a for a in release['assets']}
+          assert set(existing)<=upload_names
+          for name,asset in existing.items():
+              assert asset['size']==expected[name]['bytes'] and asset.get('digest')=='sha256:'+expected[name]['sha256'], 'Existing asset differs; preserved'
+          missing=sorted(upload_names-set(existing))
+          if missing:
+              assert release['draft'], 'Published release must already contain all exact assets'
+              gh('release','upload',TAG,'--repo',REPO,*[str(folder/name) for name in missing])
+          for attempt in range(15):
+              release=json.loads(gh('api',endpoint));remote={a['name']:a for a in release['assets']}
+              if set(remote)==upload_names and all(remote[name]['size']==expected[name]['bytes'] and remote[name].get('digest')=='sha256:'+expected[name]['sha256'] for name in upload_names): break
+              time.sleep(2)
+          else: raise RuntimeError('Remote release asset integrity is not confirmed; feed untouched')
+          if release['draft']: gh('release','edit',TAG,'--repo',REPO,'--draft=false','--latest=false')
+          release=json.loads(gh('api',endpoint));assert not release['draft']
+          print(json.dumps({'status':'PUBLIC_PC58_ASSETS_PUBLISHED_FEED_UNCHANGED','release_id':release['id'],'tag':TAG,'assets':len(remote),'signed_feed_sha256':os.environ['FEED_SHA256'],'feed_promoted':False}),flush=True)
+          PY
