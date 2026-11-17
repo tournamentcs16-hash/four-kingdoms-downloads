@@ -100,19 +100,25 @@ jobs:
               with (folder/name).open('rb') as source:
                   while block:=source.read(8*1024*1024): combined.update(block);total+=len(block)
           assert combined.hexdigest()==payload['archive']['sha256'] and total==payload['archive']['bytes']
-          def gh(*args): return subprocess.run(['gh',*args],check=True,text=True,capture_output=True).stdout
-          endpoint=f'repos/{REPO}/releases/tags/{TAG}'
-          probe=subprocess.run(['gh','api',endpoint],text=True,capture_output=True)
+          def gh(*args):
+              result=subprocess.run(['gh',*args],text=True,capture_output=True)
+              if result.returncode: print(result.stderr,flush=True);result.check_returncode()
+              return result.stdout
+          def find_release():
+              matches=[r for r in json.loads(gh('api',f'repos/{REPO}/releases?per_page=100')) if r['tag_name']==TAG]
+              assert len(matches)<=1
+              return matches[0] if matches else None
           marker='<!-- TTR-PC56-REVIEWED:'+os.environ['TRANSFER_MANIFEST_SHA256']+' -->'
           notes='The Tenth Rift PC alpha — Build56 / 0.1.5-alpha\n\nUpdated approved interface, three Paragon hero models, sixteen free appearances, team wave NPC models and the Windows app icon. Includes the accepted post-Build55 fixes. Steam sign-in is pending; full-match and multi-PC performance acceptance remain owner testing. Existing profiles and settings are preserved.\n\n'+marker+'\n'
           pathlib.Path('pc56-release-notes.txt').write_text(notes)
-          if probe.returncode==0:
-              release=json.loads(probe.stdout)
+          release=find_release()
+          if release is not None:
               assert marker in (release.get('body') or ''), 'An independently managed release already exists; preserved'
           else:
-              assert '404' in probe.stderr, probe.stderr
               gh('release','create',TAG,'--repo',REPO,'--target','main','--draft','--latest=false','--title','The Tenth Rift PC alpha — Build56','--notes-file','pc56-release-notes.txt')
-              release=json.loads(gh('api',endpoint))
+              release=find_release()
+              assert release is not None
+          endpoint=f'repos/{REPO}/releases/{release["id"]}'
           upload_names=set(rows)-{'TheTenthRiftLatest.json'}
           assert len(upload_names)==7
           existing={a['name']:a for a in release['assets']}
